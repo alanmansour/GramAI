@@ -276,7 +276,8 @@ When all checks are passed, merging is allowed. This helped to keep the main cod
 >
 > Answer:
 
---- question 11 fill here ---
+We have organized our CI into 3 separate files: one for checking if the code is PEP8 compliant via Ruff linter [codecheck.yaml](https://github.com/Alanocorleo/mlops_proj47/blob/main/.github/workflows/codecheck.yaml), one for checking if the code passes all unit tests [test.yaml](https://github.com/Alanocorleo/mlops_proj47/blob/main/.github/workflows/tests.yml), and one for checking the code coverage and uploading a report to Codecov [coverage.yaml](https://github.com/Alanocorleo/mlops_proj47/blob/main/.github/workflows/coverage.yaml). For testing, we use caching and code coverage, since there're a lot of dependencies and the sizes of some packages are significantly large. An example of a triggered workflow can be seen here: https://github.com/Alanocorleo/mlops_proj47/actions/runs/7545186644/job/20540236825. We also check for multiple operating systems: `ubuntu-latest`, `windows-latest`, `macos-latest`. Another part is related to the cloud. Whenever the main branch is updated, a build gets triggered. `cloudbuild.yaml` is used by Cloud Build on GCP to get the steps required for creating, storing and deploying a container in a continues manner. All logs from the build process are sent to Github. In this way, if the build fails on cloud, all developers would get notified. With this setup, CI automates the integration of code changes from every group member into a single consistent project. It improves the quality and the speed of delivery by providing fast feedback, reducing errors, limiting manual tasks, and ensuring consistent builds, enabling efficiency and productivity in work.
+
 
 ## Running code and tracking experiments
 
@@ -374,7 +375,7 @@ When all checks are passed, merging is allowed. This helped to keep the main cod
 >
 > Answer:
 
-We used the following services: Compute Engine, Cloud Run, and Cloud Storage.
+We primarily used the following services: Compute Engine, Cloud Run, and Cloud Storage.
 
 - **Compute Engine** allows running virtual machines (VMs) on Google's cloud. By choosing the configuration of CPU, memory, GPU, disk, OS, and the needed software to run on the VMs, this service porivdes everything necessary to perform training on cloud. 
 
