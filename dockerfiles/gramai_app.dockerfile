@@ -13,7 +13,12 @@ RUN pip install -r requirements_app.txt --no-cache-dir
 
 COPY src/gramai_app.py src/gramai_app.py
 COPY src/config.yaml src/config.yaml
-COPY models/ models/
+
+RUN dvc init --no-scm
+COPY .dvc/config .dvc/config
+COPY models.dvc models.dvc
+RUN dvc config core.no_scm true
+RUN dvc pull
 
 WORKDIR /src
 CMD exec uvicorn gramai_app:app --port $PORT --host 0.0.0.0 --workers 1
