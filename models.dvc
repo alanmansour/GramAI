@@ -1,0 +1,60 @@
+outs:
+- hash: md5
+  path: models
+  files:
+  - relpath: .gitkeep
+    md5: d41d8cd98f00b204e9800998ecf8427e
+    size: 0
+    cloud:
+      remote_storage:
+        etag: 08ecb7c59fd3d783031001
+        version_id: '1705055643327468'
+  - relpath: model/config.json
+    md5: 21034bc8e750a1f312f2035697451067
+    size: 1502
+    cloud:
+      remote_storage:
+        etag: 08ea8dd69fd3d783031001
+        version_id: '1705055643600618'
+  - relpath: model/generation_config.json
+    md5: e7356676de6c8bad26d2c7ceedc92fad
+    size: 142
+    cloud:
+      remote_storage:
+        etag: 08d0f6d19fd3d783031001
+        version_id: '1705055643532112'
+  - relpath: model/model.safetensors
+    md5: a86a4d9d516fc7113b6a654a8edd41a8
+    size: 241984552
+    cloud:
+      remote_storage:
+        etag: 08b690d4b1d3d783031001
+        version_id: '1705055681316918'
+  - relpath: model/special_tokens_map.json
+    md5: 9583322ae544dfbdb0001350ab4c3fd9
+    size: 2543
+    cloud:
+      remote_storage:
+        etag: 08a5bdd59fd3d783031001
+        version_id: '1705055643590309'
+  - relpath: model/spiece.model
+    md5: 9d15ef55d09d5a425ceb63fa31f7cae3
+    size: 791656
+    cloud:
+      remote_storage:
+        etag: 08a6c5ee9fd3d783031001
+        version_id: '1705055644000934'
+  - relpath: model/tokenizer.json
+    md5: 8a4641de8eef90a012c1e5192155f8e2
+    size: 2422191
+    cloud:
+      remote_storage:
+        etag: 08e2c989a0d3d783031001
+        version_id: '1705055644443874'
+  - relpath: model/tokenizer_config.json
+    md5: b484cea676b894dd7d48c3839af09853
+    size: 20746
+    cloud:
+      remote_storage:
+        etag: 0889dad79fd3d783031001
+        version_id: '1705055643626761'
