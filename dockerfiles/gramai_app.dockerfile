@@ -10,6 +10,7 @@ RUN apt update && \
 COPY requirements_app.txt requirements_app.txt
 WORKDIR /
 RUN pip install -r requirements_app.txt --no-cache-dir
+RUN pip install "dvc[gs]"
 
 COPY src/gramai_app.py src/gramai_app.py
 COPY src/config.yaml src/config.yaml
