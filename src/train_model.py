@@ -1,8 +1,7 @@
 import os
 
 import hydra
-from happytransformer import HappyTextToText, TTTrainArgs
-from happytransformer import TTSettings
+from happytransformer import HappyTextToText, TTSettings, TTTrainArgs
 
 os.environ["WANDB_PROJECT"] = "mlops-proj47"
 os.environ["WANDB_LOG_MODEL"] = "checkpoint"

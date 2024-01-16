@@ -4,13 +4,10 @@ import os.path as path
 import click
 import matplotlib.pyplot as plt
 import torch
+from happytransformer import HappyTextToText, TTSettings
+
 import wandb
-
 from models.model import MyAwesomeModel
-from happytransformer import TTSettings
-from happytransformer import  HappyTextToText
-
-
 
 
 @click.command()
