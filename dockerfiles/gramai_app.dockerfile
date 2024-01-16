@@ -10,7 +10,12 @@ RUN apt update && \
 COPY requirements_app.txt requirements_app.txt
 WORKDIR /
 RUN pip install -r requirements_app.txt --no-cache-dir
-RUN pip install "dvc[gs]"
+RUN sudo wget \ https://dvc.org/deb/dvc.list \ -O /etc/apt/sources.list.d/dvc.list
+RUN wget -qO - https://dvc.org/deb/iterative.asc | gpg --dearmor > packages.iterative.gpg
+RUN sudo install -o root -g root -m 644 packages.iterative.gpg /etc/apt/trusted.gpg.d/
+RUN rm -f packages.iterative.gpg
+RUN sudo apt update
+RUN sudo apt install dvc
 
 COPY src/gramai_app.py src/gramai_app.py
 COPY src/config.yaml src/config.yaml
