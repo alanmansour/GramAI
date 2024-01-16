@@ -1,4 +1,5 @@
 import os
+
 import hydra
 from happytransformer import HappyTextToText, TTTrainArgs
 from happytransformer import TTSettings
@@ -6,10 +7,11 @@ from happytransformer import TTSettings
 os.environ["WANDB_PROJECT"] = "mlops-proj47"
 os.environ["WANDB_LOG_MODEL"] = "checkpoint"
 
-@hydra.main(config_path='models/config', config_name="config.yaml")
+
+@hydra.main(config_path="models/config", config_name="config.yaml")
 def train(cfg):
-    model = HappyTextToText('t5-small')
-    args = TTTrainArgs(batch_size=cfg.batch_size, report_to='wandb')
+    model = HappyTextToText("t5-small")
+    args = TTTrainArgs(batch_size=cfg.batch_size, report_to="wandb")
 
     model.train(cfg.dataset_path, args=args)
     beam_settings =  TTSettings(num_beams=5, min_length=1, max_length=100)
@@ -21,5 +23,6 @@ def train(cfg):
     print(output_text_1.text)
     model.save("model/")
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     train()
