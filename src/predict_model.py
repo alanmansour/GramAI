@@ -4,9 +4,8 @@ import os.path as path
 import click
 import matplotlib.pyplot as plt
 import torch
-from happytransformer import HappyTextToText, TTSettings
-
 import wandb
+from happytransformer import HappyTextToText, TTSettings
 from models.model import MyAwesomeModel
 
 
