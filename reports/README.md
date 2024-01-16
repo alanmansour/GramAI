@@ -54,34 +54,34 @@ end of the project.
 * [ ] Make sure that all team members have write access to the github repository
 * [x] Create a dedicated environment for you project to keep track of your packages
 * [x] Create the initial file structure using cookiecutter
-* [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
-* [ ] Add a model file and a training script and get that running
-* [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
+* [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+* [x] Add a model file and a training script and get that running
+* [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+* [x] Remember to comply with good coding practices (`pep8`) while doing the project
 * [ ] Do a bit of code typing and remember to document essential parts of your code
 * [ ] Setup version control for your data or part of your data
-* [ ] Construct one or multiple docker files for your code
-* [ ] Build the docker files locally and make sure they work as intended
-* [ ] Write one or multiple configurations files for your experiments
-* [ ] Use Hydra to load the configurations and manage your hyperparameters
+* [x] Construct one or multiple docker files for your code
+* [x] Build the docker files locally and make sure they work as intended
+* [x] Write one or multiple configurations files for your experiments
+* [x] Use Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction and or model training
+* [x] Write unit tests related to the data part of your code
+* [x] Write unit tests related to model construction and or model training
 * [ ] Calculate the coverage.
 * [x] Get some continuous integration running on the github repository
 * [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
-* [ ] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [x] Create a trigger workflow for automatically building your docker images
+* [x] Get your model training in GCP using either the Engine or Vertex AI
+* [x] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
-* [ ] Deploy your model in GCP using either Functions or Run as the backend
+* [x] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
@@ -107,6 +107,8 @@ end of the project.
 
 --- question 1 fill here ---
 
+MLOps 47
+
 ### Question 2
 > **Enter the study number for each member in the group**
 >
@@ -117,6 +119,8 @@ end of the project.
 > Answer:
 
 --- question 2 fill here ---
+
+s183955, s184191, s194819
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -148,7 +152,17 @@ end of the project.
 >
 > Answer:
 
---- question 4 fill here ---
+We used `conda` for managing our dependencies. The list of dependencies was auto-generated using `pipreqs`. These depedencies were stored in requirements.txt. To get a complete copy of our development environment, one would have to run the following commands:
+
+Assuming `conda` and `git` are already installed:
+1. Clone the project: `git clone https://github.com/Alanocorleo/mlops_proj47.git`
+2. Change the current directory: `cd mlops_proj47`
+3. Create a conda enviroment (Python version can be obtained form pyproject.toml): `conda create --name <env_name> python=3.11.5` 
+4. Activate the created enviroment: `conda activate <env_name>`
+5. Install all the required packages: `pip install -r requirements.txt`
+
+requirements.txt is updated whenever there is change in the main branch. Thus, when working on a new branch, if the developer notices that some packages are missing from the enviroment, the developer is encoureged to install the packages using the file. `pip` would take care if some packages are missing or already exist.
+
 
 ### Question 5
 
@@ -163,7 +177,8 @@ end of the project.
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+From the cookiecutter template, we filled out the folders `src/data`, `src/models`, `data`, `models`, `tests`, `dockerfiles` and `reports`. We removed however `src/visualisations`, `docs` and `notebooks`. Since we were working with textual data, creating visualisations was not obvious. We also primarily relied on Python files; thus, Jupyter notebooks were not used. Moreover, we did not use MkDocs documentation framework. Instead, all information regarding our project was made available in the main README.md file, which containes a detailed description of the components and a short guide on how to use them. As for new folders, we added `src/assets`folder that contains all assets used in our graphical-based client app. Regarding the files given from the template (exluding those from the removed folders), all of them were filled and used. Moreover, new files were added such as gramai_app.py and app.py, as well as different requirements files, and cloudbuild.yaml. They were primarly used in cloud deployment.
+
 
 ### Question 6
 
@@ -174,7 +189,7 @@ end of the project.
 >
 > Answer:
 
---- question 6 fill here ---
+All team members have a software engineering background. Therefore, we were trying to apply software design principles such as Don't Repeat Yourself (DRY), Do One Thing (DOT), Keep It Simple Stupid (KISS), and You Aren't Gonna Need It (YAGNI). We also used `ruff` as our linter to analyze our code and to flag programming errors, bugs, and styling errors. All this can potentially reduce the possibility of bug occurence, while reducing the time spent to find a bug if occurred, in larger projects. Formatting also helps new developers in the team to understand the code easily.
 
 ## Version control
 
@@ -223,7 +238,14 @@ end of the project.
 >
 > Answer:
 
---- question 9 fill here ---
+We made use of both branches and PRs in our project. In our group, each member had at least a branch to work on, contributing to the main branch. Every branch corresponded to a feature. For example, being able to deploy an app on cloud automatically requires \<name\>.dockerfile as well as cloudbuild.yaml, which should contain the steps needed for doing so. This is considered as a feature. The feature must be functional before merging with main. If multiple components are involved, then a branch from main can be considered as an enabler, and further branches as features. To merge code, we always pulled the main branch, merged locally with the feature branch, and then pushed all changes to the feature branch on Github. On Github, a branch protection rule was applied to merge with main. This included:
+
+- Require a pull request before merging
+- Require at least 1 approval
+- Require status checks to pass before merging
+- Require conversation resolution before merging
+
+When all checks are passed, merging is allowed. This helped to keep the main code always functional.
 
 ### Question 10
 
@@ -352,7 +374,13 @@ end of the project.
 >
 > Answer:
 
---- question 17 fill here ---
+We used the following services: Compute Engine, Cloud Run, and Cloud Storage.
+
+- **Compute Engine** allows running virtual machines (VMs) on Google's cloud. By choosing the configuration of CPU, memory, GPU, disk, OS, and the needed software to run on the VMs, this service porivdes everything necessary to perform training on cloud. 
+
+- **Cloud Run** allows running containers on a fully managed serverless platform. By deploying a container to Cloud Run, it will handle the hosting, scaling, and networking.
+
+- **Cloud Storage** allows storing and accessing data on Google's cloud. Buckets are used to store large datasets. This service can be integrated with other GCP services, such as Compute Engine, Cloud Run, or Cloud Functions.
 
 ### Question 18
 
@@ -367,7 +395,7 @@ end of the project.
 >
 > Answer:
 
---- question 18 fill here ---
+We used Compute Engine to run our training. 
 
 ### Question 19
 
@@ -385,7 +413,7 @@ end of the project.
 >
 > Answer:
 
---- question 20 fill here ---
+![Container Registry](figures/container_registry.png)
 
 ### Question 21
 
@@ -394,7 +422,7 @@ end of the project.
 >
 > Answer:
 
---- question 21 fill here ---
+![Build History](figures/build_history.png)
 
 ### Question 22
 
@@ -410,7 +438,19 @@ end of the project.
 >
 > Answer:
 
---- question 22 fill here ---
+For deployment we wrapped our model into an application using FastAPI. We created a trigger using Triggers, a feature provided by Cloud Build service, on GCP, and a `cloudbuild.yaml` file, specifying the steps needed: creating an image using `dockerfiles/gramai_app.dockerfile`, creating a container by running the image, pushing this container to Container Registry, and then deploy it using Cloud Run. To invoke the service, let's assume a user would like to check the correctness of the following sentence: *"He have a car"*. Hence, a user would call 
+
+Curl:
+`curl -X 'POST' 'https://gramai-app-h2yv3342wq-ew.a.run.app/text/?input_sentence=He%20have%20a%20car'`
+
+A response would be:
+`{"corrected":"He has a car."}%`
+
+We took another approach by designing and creating an app with user interface. We also deployed it ([GramAI](https://gramai-gapp-h2yv3342wq-ew.a.run.app/)). The following screenshot shows how it should look like:
+
+![GramAI](figures/gramai_deployed.png)
+
+A user interface provides a more intuitive way to interact with our deployed model.
 
 ### Question 23
 
@@ -439,7 +479,8 @@ end of the project.
 >
 > Answer:
 
---- question 24 fill here ---
+Group member 1 used 6.67$. In total X credits was spend during development. The service costing the most was Compute Engine due to having instances running, espcially for training. The instances must be stopped after finishing working with them; otherwise, they can consume credits. This is different to Cloud Run, which we used for deploying our app. It requires payment for the resources only when the deployed container is invoked and running.
+
 
 ## Overall discussion of project
 
@@ -474,7 +515,7 @@ end of the project.
 >
 > Answer:
 
---- question 26 fill here ---
+The biggest challenge in the project was working with new tools and frameworks. In particular, when working on cloud, there were lots of issues when we tried to setup the deployment pipeline. Some scripts provided from the exercises were not working as intended. Therefore, we had to read GCP documentation and try out different examples from the available guides before we could identify any issue. This helped us gaining a better understanding of how different components are connected and interact with each other on GCP. Yet, there are still some problems that we were not able to solve. One of them being able to autmatically deploy a container. Apparently, after doing some research, a large docker file can cause problems. In our case, the size is around 3.6 GB. Despite our efforts in optimizing and reducing the overall size by keeping only the necessary files and folders, the issue hasn't been resolved yet.
 
 ### Question 27
 
@@ -490,5 +531,11 @@ end of the project.
 > *All members contributed to code by...*
 >
 > Answer:
+
+Student s183955 was in charge of setting up the project with cookie cutter, configuring protection rules on Github, creating a continuous integration (CI) setup, creating docker files for app deployment, buidling a pipeline for app deployment on cloud, and creating a graphical app for clients.
+
+s184191 was in charge of 1, 2, 3
+
+s194819 was in charge of 1, 2, 3
 
 --- question 27 fill here ---
