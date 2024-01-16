@@ -4,8 +4,8 @@ import os.path as path
 import click
 import matplotlib.pyplot as plt
 import torch
-
 import wandb
+
 from models.model import MyAwesomeModel
 
 
