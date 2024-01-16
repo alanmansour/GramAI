@@ -4,3 +4,11 @@ happytransformer==3.0.0
 hydra-core==1.3.2
 omegaconf==2.3.0
 pydantic==2.5.3
+dvc==3.38.1
+dvc-data==3.7.0
+dvc-gs==3.0.1
+dvc-http==2.32.0
+dvc-objects==3.0.6
+dvc-render==1.0.0
+dvc-studio-client==0.18.0
+dvc-task==0.3.0
