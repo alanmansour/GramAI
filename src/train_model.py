@@ -21,7 +21,7 @@ def train(cfg):
     model.train(cfg.dataset_path, args=args)
     output_text_1 = model.generate_text(input_text_1, args=beam_settings)
     print(output_text_1.text)
-    model.save("model/")
+    model.save("models/model/")
 
 
 if __name__ == "__main__":

@@ -24,4 +24,4 @@ RUN dvc pull
 COPY reports/ reports/
 
 ENTRYPOINT ["python", "-u", "src/predict_model.py"]
-#docker run -e WANDB_API_KEY=USEYOURKEYHERE -v $(pwd)/models:/models predict:latest models/trained_model.pt data/processed/test_set.pt
+#docker run -e WANDB_API_KEY=USEYOURKEYHERE predict:latest

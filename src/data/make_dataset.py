@@ -3,7 +3,6 @@ import os
 
 import hydra
 from datasets import load_dataset
-import click
 
 
 def generate_csv(csv_path, dataset):

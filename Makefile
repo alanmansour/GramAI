@@ -38,7 +38,7 @@ clean:
 
 ## Process raw data into processed data
 data:
-	python $(PROJECT_NAME)/data/make_dataset.py $(number_of_examples) $(data_path)
+	python $(PROJECT_NAME)/data/make_dataset.py
 
 ## Make train model
 .PHONY: train
