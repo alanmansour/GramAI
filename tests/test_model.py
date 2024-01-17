@@ -4,13 +4,13 @@ import torch
 from src.models.model import MyAwesomeModel
 
 
-@pytest.mark.parametrize("X, Y", [((1, 1, 28, 28), (1, 10)), ((10, 1, 28, 28), (10, 10))])
-def test_model(X, Y):
+@pytest.mark.parametrize("x, y", [((1, 1, 28, 28), (1, 10)), ((10, 1, 28, 28), (10, 10))])
+def test_model(x, y):
     model = MyAwesomeModel()
     model.eval()
-    x = torch.randn(X)
+    x = torch.randn(x)
     y = model(x)
-    assert y.shape == Y, f"The output shape does not equal to {Y} given the input {X}"
+    assert y.shape == y, f"The output shape does not equal to {y} given the input {x}"
 
 
 def test_error_on_wrong_shape():
