@@ -18,6 +18,5 @@ RUN dvc init --no-scm
 COPY .dvc/config .dvc/config
 COPY models.dvc models.dvc
 RUN dvc config core.no_scm true
-#RUN dvc pull -v
 WORKDIR /src
 CMD dvc pull -v && exec uvicorn gramai_app:app --port $PORT --host 0.0.0.0 --workers 1
