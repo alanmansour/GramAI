@@ -11,26 +11,26 @@ steps:
   args: ['build', '-f', 'dockerfiles/train_model.dockerfile', '.', '-t', 'gcr.io/durable-stack-410709/train:latest'] 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/durable-stack-410709/train:latest']
-options:
-  machineType: 'N1_HIGHCPU_8'
 # Deploy container image to Cloud Run
-# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   entrypoint: gcloud
-#   args:
-#   - 'run'
-#   - 'deploy'
-#   - 'gramai-app'
-#   - '--image'
-#   - 'gcr.io/durable-stack-410709/gramai_app:latest'
-#   - '--allow-unauthenticated'
-#   - '--port'
-#   - '8080'
-#   - '--memory'
-#   - '4Gi'
-#   - '--max-instances'
-#   - '10'
-#   - '--cpu-boost'
-#   - '--region'
-#   - 'europe-west1'
-#   - '--project'
-#   - 'durable-stack-410709'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+   args:
+   - 'run'
+   - 'deploy'
+   - 'gramai-app'
+   - '--image'
+   - 'gcr.io/durable-stack-410709/gramai_app:latest'
+   - '--allow-unauthenticated'
+   - '--port'
+   - '8080'
+   - '--memory'
+   - '4Gi'
+   - '--max-instances'
+   - '10'
+   - '--cpu-boost'
+   - '--region'
+   - 'europe-west1'
+   - '--project'
+   - 'durable-stack-410709'
+options:
+  machineType: 'E2_HIGHCPU_32	'
