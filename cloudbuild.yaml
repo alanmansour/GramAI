@@ -6,7 +6,7 @@ steps:
 
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-#  args: ['push', 'gcr.io/durable-stack-410709/gramai_app:latest']
+  args: ['push', 'gcr.io/durable-stack-410709/gramai_app:latest']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-f', 'dockerfiles/train_model.dockerfile', '.', '-t', 'gcr.io/durable-stack-410709/train:latest'] 
 - name: 'gcr.io/cloud-builders/docker'
