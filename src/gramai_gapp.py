@@ -7,7 +7,7 @@ import requests
 from dash import Dash, Input, Output, State, dcc, html
 
 # Define the carousel text and colors
-carouselText = [
+carousel_text = [
     {"text": "Grammer", "color": "red"},
     {"text": "Gramar", "color": "orange"},
     {"text": "Grammar", "color": "green"},
@@ -31,7 +31,9 @@ app.layout = html.Div(
             style={"font-size": "20px", "width": "55%", "margin-top": "60px", "resize": "none"},
             maxLength=200,
         ),
-        # dcc.Textarea(id="output", style={"font-size": "20px", "width": "55%", "margin-top": "20px", "resize":"none"}, readOnly=True),
+        # dcc.Textarea(id="output",
+        #              style={"font-size": "20px", "width": "55%", "margin-top": "20px", "resize":"none"},
+        #              readOnly=True),
         dcc.Loading(
             id="loading-2",
             type="circle",
@@ -92,8 +94,8 @@ def display_output(n_clicks, value):
 def carousel(n, i):
     global length
     global dp
-    text = carouselText[i]["text"]
-    color = carouselText[i]["color"]
+    text = carousel_text[i]["text"]
+    color = carousel_text[i]["color"]
     if dp == 0:
         # Get the current text and color from the carousel list
         partial = text[0 : abs(length)]
@@ -106,7 +108,7 @@ def carousel(n, i):
             dp = 1
         if length == 0:
             # Increment i to go to the next word
-            i = (i + 1) % len(carouselText)
+            i = (i + 1) % len(carousel_text)
     elif dp < 4:
         span = html.Span(text, style={"color": color})
         # Add a delay point

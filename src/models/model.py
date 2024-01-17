@@ -12,7 +12,10 @@ class MyAwesomeModel(LightningModule):
 
     """My awesome model.
 
-    This class defines a convolutional neural network model that can classify images into 10 classes. It consists of three convolutional layers, each followed by a max pooling layer, two fully connected layers, and a dropout and a batch normalization layer in between. The final layer uses a log softmax activation function to output the class probabilities.
+    This class defines a convolutional neural network model that can classify images into 10 classes.
+    It consists of three convolutional layers, each followed by a max pooling layer, two fully connected layers,
+    and a dropout and a batch normalization layer in between. The final layer uses a log softmax activation function
+    to output the class probabilities.
 
     Attributes
     ----------
