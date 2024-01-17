@@ -260,7 +260,7 @@ When all checks are passed, merging is allowed. This helped to keep the main cod
 >
 > Answer:
 
---- question 10 fill here ---
+We have not used DVC for managing data in the project. However, we have used it for managing models. In our project, the model files have a size of about 300MB where as the data is about 3MB. We can easily version control the data with git as it is provided in a CSV file. The model files on the other hand cannot be version controlled by github as they exceed 100MB size threshhold. On the other hand, dvc allows us to version control the model. If one of the group members gets lucky with their hyperparameters and produces a great model. They can use dvc so that is is accessible to all group members with a simple dvc pull command.
 
 ### Question 11
 
@@ -296,7 +296,7 @@ We have organized our CI into 3 separate files: one for checking if the code is 
 >
 > Answer:
 
---- question 12 fill here ---
+We used hydra for configuring the parameters of our experiments in config files. 
 
 ### Question 13
 
@@ -311,7 +311,7 @@ We have organized our CI into 3 separate files: one for checking if the code is 
 >
 > Answer:
 
---- question 13 fill here ---
+Remember to check for seed
 
 ### Question 14
 
@@ -405,8 +405,10 @@ We used Compute Engine to run our training.
 >
 > Answer:
 
---- question 19 fill here ---
+![Alt text](figures/GCP_bucket.png)
 
+![Alt text](figures/GCP_bucket1.png)
+![Alt text](figures/GCP_bucket2.png)
 ### Question 20
 
 > **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
