@@ -8,9 +8,9 @@ from src.models.model import MyAwesomeModel
 def test_model(x, y):
     model = MyAwesomeModel()
     model.eval()
-    x = torch.randn(x)
-    y = model(x)
-    assert y.shape == y, f"The output shape does not equal to {y} given the input {x}"
+    x_ = torch.randn(x)
+    y_ = model(x_)
+    assert y_.shape == y, f"The output shape does not equal to {y} given the input {x}"
 
 
 def test_error_on_wrong_shape():
