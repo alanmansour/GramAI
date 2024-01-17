@@ -34,4 +34,4 @@ steps:
   - 'durable-stack-410709'
 options:
   machineType: 'E2_HIGHCPU_32'
-   diskSizeGb: '200'
+  diskSizeGb: '200'
