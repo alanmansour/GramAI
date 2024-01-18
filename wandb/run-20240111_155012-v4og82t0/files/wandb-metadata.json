@@ -1,0 +1,45 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.11.5",
+    "heartbeatAt": "2024-01-11T14:50:13.390902",
+    "startedAt": "2024-01-11T14:50:12.372245",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/Users/antonkirk/Documents/Uni/S24/mlops/mlops_proj47/src/train_model.py",
+    "codePathLocal": "src/train_model.py",
+    "codePath": "src/train_model.py",
+    "git": {
+        "remote": "https://github.com/Alanocorleo/mlops_proj47.git",
+        "commit": "2b3cc94e8d52d74fc07d1464aa77a084d9c56723"
+    },
+    "email": "s184191@student.dtu.dk",
+    "root": "/Users/antonkirk/Documents/Uni/S24/mlops/mlops_proj47",
+    "host": "Antons-MacBook-Pro-4.local",
+    "username": "antonkirk",
+    "executable": "/Users/antonkirk/anaconda3/envs/mlops_group_project/bin/python",
+    "cpu_count": 4,
+    "cpu_count_logical": 8,
+    "cpu_freq": {
+        "current": 2300,
+        "min": 2300,
+        "max": 2300
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2300,
+            "min": 2300,
+            "max": 2300
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 233.46913528442383,
+            "used": 9.4281005859375
+        }
+    },
+    "memory": {
+        "total": 8.0
+    }
+}
