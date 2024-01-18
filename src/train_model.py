@@ -1,4 +1,5 @@
 import os
+import logging
 
 import hydra
 from happytransformer import HappyTextToText, TTSettings, TTTrainArgs
@@ -14,15 +15,20 @@ def train(cfg: DictConfig) -> None:
     model = HappyTextToText("t5-small")
     args = TTTrainArgs(batch_size=cfg.batch_size, report_to="wandb")
 
+    logging.info("Starting model training...")
     model.train(cfg.dataset_path, args=args)
+    
     beam_settings = TTSettings(num_beams=5, min_length=1, max_length=100)
     input_text_1 = "grammar: I I wants to codes."
     output_text_1 = model.generate_text(input_text_1, args=beam_settings)
-    print(output_text_1.text)
+    logging.info("Generated text after first training: %s", output_text_1.text)
+   
     model.train(cfg.dataset_path, args=args)
     output_text_1 = model.generate_text(input_text_1, args=beam_settings)
-    print(output_text_1.text)
-    model.save("models/model/")
+    logging.info("Generated text after second training: %s", output_text_1.text)
+    
+    model.save(cfg.model_output_path)
+    logging.info("Model training completed and saved at: %s", cfg.model_output_path)
 
 
 if __name__ == "__main__":
