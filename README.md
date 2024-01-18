@@ -10,6 +10,43 @@ The reason for training only a subset is to limit the training time of the model
 ### What models do you expect to use
 The idea is to use FLAN-T5, which  is an enhanced version of T5 that has been fine-tuned on a mixture of tasks that include question answering, summarization, translation, and grammatical error correction. T5 is based on the Transformer architecture, which is a type of neural network that has been proven to be highly effective in NLP tasks. T5 uses a Text-to-Text approach. It is pre-trained on a large text corpus (C4). This allows T5 to learn general language knowledge and transfer it to different tasks. T5 is available in different sizes, ranging from small (60 million parameters) to XXL (11 billion parameters). Our task is to further fine-tune FLAN-T5 on grammar error correction to improve its performance.
 
+## Running Experiments
+
+### Locally
+To run the project locally first make sure data and packages are installed. Data can be created with `make data`. Requirements can be installed with `make requirements`. Then running the training with `make train` or `python -u src/train_model.py`. To specify some config file to be used for the experiment use something like `python -u src/train_model.py training=training_fast2`. 
+### Docker
+Build with `docker build -f dockerfiles/train_model.dockerfile . -t train:latest`
+
+Run with `docker run  -e WANDB_API_KEY=wandbapikeyhere train:latest training=training_fast`
+
+### Cloud
+with vertexAI: `gcloud ai custom-jobs create     --region=europe-west1 --display-name=test-run     --config=vertexAIconfig.yaml`
+
+With compute engine:
+
+- First create instance with: 
+
+<code>
+gcloud compute instances create instance-5 \
+    --zone europe-west4-a \
+    --image-family=pytorch-latest-gpu \
+    --image-project=deeplearning-platform-release \
+    --accelerator="type=nvidia-tesla-v100,count=1" \
+    --metadata="install-nvidia-driver=True" \
+    --maintenance-policy TERMINATE
+</code>
+
+- Then ssh into the machine
+- git clone repo
+- make conda env with same python version
+- install dependencies with `make requirements`
+- finally you can train with same commands as locally.
+
+## Deployed Application
+
+You can find the deployed application at https://gramai-gapp-h2yv3342wq-ew.a.run.app/
+
+Code test coverage at https://app.codecov.io/gh/Alanocorleo/mlops_proj47 
 
 ## Project structure
 
