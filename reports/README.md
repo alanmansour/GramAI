@@ -380,13 +380,17 @@ We encountered many bugs during our experiment runs. We performed debugging main
 >
 > Answer:
 
-We primarily used the following services: Compute Engine, Cloud Run, and Cloud Storage.
+We primarily used the following services: Compute Engine, Cloud Run, Cloud Build, Cloud Storage, and Container Registry.
 
 - **Compute Engine** allows running virtual machines (VMs) on Google's cloud. By choosing the configuration of CPU, memory, GPU, disk, OS, and the needed software to run on the VMs, this service porivdes everything necessary to perform training on cloud. 
 
 - **Cloud Run** allows running containers on a fully managed serverless platform. By deploying a container to Cloud Run, it will handle the hosting, scaling, and networking.
 
+- **Cloud Build** is a serverless continuous integration, delivery, and deployment platform that allows running fast, consistent, reliable automated builds. It can be used with Triggers to automatically trigger builds.
+
 - **Cloud Storage** allows storing and accessing data on Google's cloud. Buckets are used to store large datasets. This service can be integrated with other GCP services, such as Compute Engine, Cloud Run, or Cloud Functions.
+
+- **Container Registry** is a repository of container images and artifacts for Kubernetes, DevOps, and container-based application development. We used Container Registry to store, secure, scan, and manage our container images.
 
 ### Question 18
 
@@ -521,7 +525,7 @@ Group member 1 used 6.67$. In total X credits was spend during development. The 
 >
 > Answer:
 
-The biggest challenge in the project was working with new tools and frameworks. In particular, when working on cloud, there were lots of issues when we tried to setup the deployment pipeline. Some scripts provided from the exercises were not working as intended. Therefore, we had to read GCP documentation and try out different examples from the available guides before we could identify any issue. This helped us gaining a better understanding of how different components are connected and interact with each other on GCP. Yet, there are still some problems that we were not able to solve. One of the problems is to train with compute engine using GPU. The main reason was that a gpu driver update was needed. It was quite challenging to do that with only an ssh connection. The other solution would have been to downgrade our pytorch version but that is out of our control as the framework built on top has control over it. It was also challenging to deal with debugging build failures. Our containers work locally but fail in the cloud and the cloud logs and error messages are very vague and imprecise. So, we do not really know what is exactly going wrong. Most fixes have been through blind trial and error but we eventually solved build problems.
+The biggest challenge in the project was working with new tools and frameworks - those we have no prior experience with. In particular, when working on cloud, there were lots of issues when we tried to setup the deployment pipeline. Some scripts provided from the exercises were not working as intended. Therefore, we had to read GCP documentation and try out different examples from the available guides before we could identify any issue. This helped us gaining a better understanding of how different components are connected and interact with each other on GCP. One problems that we had was not being able to autmatically deploy a container. Apparently, after doing some research, a large docker file can cause problems. In our case, the size is around 3.6 GB. Despite our efforts in optimizing and reducing the overall size by keeping only the necessary files and folders, it didn't work. The alternative solution that solved our problem was basically specifying the machine name which should handle all of the processing. The more capable the machine, the better it can handle large files.One of the problems is to train with compute engine using GPU. The main reason was that a gpu driver update was needed. It was quite challenging to do that with only an ssh connection. The other solution would have been to downgrade our pytorch version but that is out of our control as the framework built on top has control over it. It was also challenging to deal with debugging build failures. Our containers work locally but fail in the cloud and the cloud logs and error messages are very vague and imprecise. So, we do not really know what is exactly going wrong. Most fixes have been through blind trial and error but we eventually solved build problems.
 
 ### Question 27
 
