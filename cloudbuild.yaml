@@ -31,7 +31,7 @@ steps:
   - 'run'
   - 'services'
   - 'replace'
-  - 'service-monitoring.yaml'
+  - 'gramai_app_service.yaml'
   - '--region'
   - 'europe-west1'
   id: 'Deploy container image to Cloud Run'
