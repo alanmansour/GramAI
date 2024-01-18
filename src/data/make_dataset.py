@@ -32,7 +32,7 @@ def generate_csv(csv_path: str | os.PathLike,
 
     logging.info('Dataset converted to CSV and saved to %s', csv_path)
 
-@hydra.main(config_path='.', config_name="config.yaml", version_base = None)
+@hydra.main(config_path='../../config', config_name="default_config.yaml", version_base = None)
 def make_dataset(cfg: DictConfig) -> None:
     """Downloads dataset from huggingface hub and generates a CSV file.
 
@@ -46,6 +46,8 @@ def make_dataset(cfg: DictConfig) -> None:
         ValueError: If the configuration file is not present.
         ValueError: If n_examples is not a non-zero, positive integer.
     """
+    cfg = cfg.data
+
     if not cfg:
         raise ValueError("Configuration file must be present.")
     if cfg.n_examples <= 0:
