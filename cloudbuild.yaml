@@ -1,42 +1,37 @@
 # Cloud Build steps
 steps:
-# Build the container image for deployment
+# Build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-f', 'dockerfiles/gramai_app.dockerfile', '.', '-t', 'gcr.io/durable-stack-410709/gramai_app:latest']
-  id: 'Build the container image for deployment'
-  waitFor: ["-"]
+  args: ['build', '-f', 'dockerfiles/gramai_app.dockerfile', '.', '-t', 'gcr.io/durable-stack-410709/gramai_app:latest'] 
 
-# Push the container image for deployment to Container Registry
+# Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/durable-stack-410709/gramai_app:latest']
-  id: 'Push the container image for deployment to Container Registry'
-  waitFor: ["Build the container image for deployment"]
-
-# Build the container image for training
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-f', 'dockerfiles/train_model.dockerfile', '.', '-t', 'gcr.io/durable-stack-410709/train:latest'] 
-  id: 'Build the container image for training'
-  waitFor: ["-"]
-
-# Push the container image for training to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/durable-stack-410709/train:latest']
-  id: 'Push the container image for training to Container Registry'
-  waitFor: ["Build the container image for training"]
-
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args:
   - 'run'
-  - 'services'
-  - 'replace'
-  - 'gramai_app_service.yaml'
+  - 'deploy'
+  - 'gramai-app'
+  - '--image'
+  - 'gcr.io/durable-stack-410709/gramai_app:latest'
+  - '--allow-unauthenticated'
+  - '--port'
+  - '8080'
+  - '--memory'
+  - '4Gi'
+  - '--max-instances'
+  - '10'
+  - '--cpu-boost'
   - '--region'
   - 'europe-west1'
-  id: 'Deploy container image to Cloud Run'
-  waitFor: ["Push the container image for deployment to Container Registry"]
-
+  - '--project'
+  - 'durable-stack-410709'
 options:
   machineType: 'E2_HIGHCPU_32'
   diskSizeGb: '200'
