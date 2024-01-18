@@ -3,9 +3,8 @@ from typing import Optional
 from fastapi import FastAPI
 from happytransformer import HappyTextToText, TTSettings
 from omegaconf import OmegaConf
-from pydantic import BaseModel
-
 from prometheus_fastapi_instrumentator import Instrumentator
+from pydantic import BaseModel
 
 cfg = OmegaConf.load("config.yaml")
 
