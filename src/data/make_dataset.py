@@ -13,7 +13,7 @@ def generate_csv(csv_path: str | os.PathLike,
         writer.writerow(["input", "target"])
         for example in dataset:
             input_text = f"grammar: {example['input']}"
-            target_text = example['output']
+            target_text = example["output"]
             writer.writerow([input_text, target_text])
 
 @hydra.main(config_path='.', config_name="config.yaml", version_base = None)

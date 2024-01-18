@@ -12,7 +12,10 @@ class MyAwesomeModel(LightningModule):
 
     """My awesome model.
 
-    This class defines a convolutional neural network model that can classify images into 10 classes. It consists of three convolutional layers, each followed by a max pooling layer, two fully connected layers, and a dropout and a batch normalization layer in between. The final layer uses a log softmax activation function to output the class probabilities.
+    This class defines a convolutional neural network model that can classify images into 10 classes.
+    It consists of three convolutional layers, each followed by a max pooling layer, two fully connected layers,
+    and a dropout and a batch normalization layer in between. The final layer uses a log softmax activation function
+    to output the class probabilities.
 
     Attributes
     ----------
@@ -96,9 +99,9 @@ class MyAwesomeModel(LightningModule):
 
     def forward(self, x):
         if x.ndim != 4:
-            raise ValueError('Expected input to a 4D tensor')
+            raise ValueError("Expected input to a 4D tensor")
         if x.shape[1] != 1 or x.shape[2] != 28 or x.shape[3] != 28:
-            raise ValueError('Expected each sample to have shape [1, 28, 28]')
+            raise ValueError("Expected each sample to have shape [1, 28, 28]")
         # Convolutional and max pooling layers
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))

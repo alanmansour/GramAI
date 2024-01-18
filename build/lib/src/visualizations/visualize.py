@@ -13,7 +13,9 @@ from ..models.model import MyAwesomeModel
 def hook_fn(module, input, output):
     """A hook function that is used to extract features from a convolutional network in PyTorch.
 
-    This function is registered to a layer of the network using the register_forward_hook method, and is called after the layer's forward pass. It appends the output tensor of the layer to a global list called features.
+    This function is registered to a layer of the network using the register_forward_hook method,
+    and is called after the layer's forward pass. It appends the output tensor of the layer to a global
+    list called features.
 
     Parameters
     ----------
