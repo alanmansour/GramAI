@@ -4,3 +4,4 @@ happytransformer==3.0.0
 hydra-core==1.3.2
 omegaconf==2.3.0
 pydantic==2.5.3
+prometheus_fastapi_instrumentator==6.1.0
