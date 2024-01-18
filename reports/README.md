@@ -105,8 +105,6 @@ end of the project.
 >
 > Answer:
 
---- question 1 fill here ---
-
 MLOps 47
 
 ### Question 2
@@ -118,7 +116,6 @@ MLOps 47
 >
 > Answer:
 
---- question 2 fill here ---
 
 s183955, s184191, s194819
 
@@ -133,7 +130,6 @@ s183955, s184191, s194819
 >
 > Answer:
 
---- question 3 fill here ---
 
 ## Coding environment
 
@@ -208,7 +204,6 @@ All team members have a software engineering background. Therefore, we were tryi
 >
 > Answer:
 
---- question 7 fill here ---
 
 ### Question 8
 
@@ -223,7 +218,6 @@ All team members have a software engineering background. Therefore, we were tryi
 >
 > Answer:
 
---- question 8 fill here ---
 
 ### Question 9
 
@@ -477,7 +471,6 @@ A user interface provides a more intuitive way to interact with our deployed mod
 >
 > Answer:
 
---- question 23 fill here ---
 
 ### Question 24
 
@@ -513,7 +506,6 @@ Group member 1 used 6.67$. Another group memeber used 3.64$. In total around 10$
 >
 > Answer:
 
---- question 25 fill here ---
 
 ### Question 26
 
