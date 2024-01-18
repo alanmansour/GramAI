@@ -34,8 +34,8 @@ steps:
   - 'service-monitoring.yaml'
   - '--region'
   - 'europe-west1'
-    id: 'Deploy container image to Cloud Run'
-    waitFor: ["Push the container image for deployment to Container Registry"]
+  id: 'Deploy container image to Cloud Run'
+  waitFor: ["Push the container image for deployment to Container Registry"]
 
 options:
   machineType: 'E2_HIGHCPU_32'
