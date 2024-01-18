@@ -1,10 +1,10 @@
-import pytest
 import csv
 import os
 
 from hydra import compose, initialize
-from src.data.make_dataset import generate_csv, make_dataset
 from omegaconf import OmegaConf
+
+from src.data.make_dataset import generate_csv, make_dataset
 
 
 def test_generate_csv(tmpdir) -> None:
