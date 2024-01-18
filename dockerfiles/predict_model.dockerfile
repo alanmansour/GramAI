@@ -10,12 +10,13 @@ COPY requirements.txt requirements.txt
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 
-COPY pyproject.toml pyproject.toml
 COPY src/ src/
 COPY data/ data/
-COPY config/ config/ 
-COPY models/ models/
-COPY reports/ reports/
+RUN dvc init --no-scm
+COPY .dvc/config .dvc/config
+COPY models.dvc models.dvc
+RUN dvc config core.no_scm true
+RUN dvc pull
 
 ENTRYPOINT ["python", "-u", "src/predict_model.py"]
-#docker run -e WANDB_API_KEY=USEYOURKEYHERE predict:latest models/trained_model.pt data/processed/test_set.pt
+#docker run -e WANDB_API_KEY=USEYOURKEYHERE predict:latest
