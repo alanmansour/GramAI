@@ -4,6 +4,7 @@ import os
 
 from hydra import compose, initialize
 from src.data.make_dataset import generate_csv, make_dataset
+from omegaconf import OmegaConf
 
 
 def test_generate_csv(tmpdir) -> None:
@@ -32,9 +33,10 @@ def test_make_dataset(tmpdir) -> None:
     temp_dir = tmpdir.mkdir("temp")
     csv_path = os.path.join(temp_dir, "test.csv")
 
-    with initialize(version_base=None, config_path="../src/data/"):
+    with initialize(version_base=None, config_path="../config"):
         # Run the make_dataset function
-        config = compose(config_name="config", overrides=["n_examples=10", f"dataset_path={csv_path}"])
+        config = compose(config_name="default_config", overrides=["data.n_examples=1", f"data.dataset_path={csv_path}"])
+        print(f"configuration: \n {OmegaConf.to_yaml(config)}")
         make_dataset(config)
 
         # Check if the CSV file is generated
@@ -45,4 +47,4 @@ def test_make_dataset(tmpdir) -> None:
             reader = csv.reader(csvfile)
             rows = list(reader)
             assert rows[0] == ["input", "target"]
-            assert len(rows) == config.n_examples + 1  # +1 for the header row
+            assert len(rows) == config.data.n_examples + 1  # +1 for the header row
