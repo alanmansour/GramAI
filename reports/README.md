@@ -296,7 +296,7 @@ We have organized our CI into 3 separate files: one for checking if the code is 
 >
 > Answer:
 
-We used hydra for configuring the parameters of our experiments in config files. 
+We used hydra for configuring the parameters of our experiments in config files. Each experiment has it's own config file. We specify which config file we want to use by specifying the file name when running the python script. `python -u src/train_model.py training=training_fast2`. We have a training config that includes training hyperparameters like lr, epochs, batch size and so one. We also have one for making data as we can choose the size of the dataset we want to download and process.
 
 ### Question 13
 
@@ -311,7 +311,7 @@ We used hydra for configuring the parameters of our experiments in config files.
 >
 > Answer:
 
-Remember to check for seed
+In order for the experiments to be reproducable we need to insure we are using the same hyperparameters (including the seed). Moreover, it is important to be running the experiements in docker containers or a compute engine instance with the same configuration. This ensures no system variabilities modify the experiment results. We also need to use the same python version and packages versions. The perfect way to ensure all the above information is not lost is to save hyperparameters in config files, package versions in requirements files and dockerfiles for images. Finally, to ensure that the experiements are indeed reproducable we compare the results of the graph produced by wandb when running the same experiment twice. We are mostly interested in comparing the eval loss, training loss and not machine performance metrics. We cannot compare the weights of the models because the lirary we are using (happytransformer) abstracts the model from us. 
 
 ### Question 14
 
@@ -328,8 +328,13 @@ Remember to check for seed
 >
 > Answer:
 
---- question 14 fill here ---
+The first metric we were interested in improving is the training time. As we know the purpose of the course is to experiment and run automated tasks, even if it comes at a slight quality loss.
+![Alt text](figures/training_speed.png)
+The red graph is for a model trained on 10000 data points while the green is trained on 3000. The red takes more than 3 times the time to train than the green while not having any substantial difference in eval loss. So, based on this experiment, we decided to run future expriements on 3000 data points to speed up the experiement times and reduce the loop of debugging in the cloud if some wrong happens.
 
+![Alt text](figures/experiments.png)
+
+A lot of experiements we ran ended up failing mostly due to hardware failures (out of memory or networking issues due wandb sending data). These failures accured both locally and in the cloud experiments. Such experiments would have a high batch size for example or high epochs. On the other hand, the experiments that have succeded have not been not produced substantially different models. We mostly compare the eval/loss as it is the metric we can track while the experiment is going on. However, if we want to do a hyperparameter sweep we need to take the validation loss instead as the key metric to minimize for. We tried a sweep with wandb but it failed due to performance issues.
 ### Question 15
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
@@ -343,7 +348,7 @@ Remember to check for seed
 >
 > Answer:
 
---- question 15 fill here ---
+We used docker to run our expreriments. We would run the docker image with a command like `docker run  -e WANDB_API_KEY=ourkeygoeshere train:latest training=training_fast`. The nice thing about using docker is that we do not loss our ability to use wandb or specify config files. We log into wandb by specifying an API key in an enviroment variable. We also specify the config file to use for the specific experiment. Our dockerfile for training can be found [here](./../dockerfiles/train_model.dockerfile). Nothing special is done in our dockerfile. We mostly copy things over and install requirements. If we are interesed in saving the model after training we can simply mount our models directory so we do not have to copy the model over after the experiment.
 
 ### Question 16
 
@@ -358,8 +363,8 @@ Remember to check for seed
 >
 > Answer:
 
---- question 16 fill here ---
-
+We encountered many bugs during our experiment runs. We performed debugging mainly through logging. Our code produces logs our training progress. Whenever we have a failure we can read the error messages and get an idea of what the bug was. We also setup tests to be able to isolate and detect bugs mostly after merging branches and adding new changes. We have not really tried profiling. Not because our code is already perfect but because the code from the libraries we are using is where most of our experiment time is spent. So optimizing our code will have negligible effects. 
+ 
 ## Working in the cloud
 
 > In the following section we would like to know more about your experience when developing in the cloud.
@@ -396,8 +401,7 @@ We primarily used the following services: Compute Engine, Cloud Run, and Cloud S
 >
 > Answer:
 
-We used Compute Engine to run our training. 
-
+Compute engine is the backbone of GCP.We used Compute Engine to run our training. We tried both cpu and gpu training. For the cpu we used pytorch-latest-cpu image family. For gpu we used pytorch-latest-cpu image family.`-accelerator="type=nvidia-tesla-v100,count=1`There was some issue with gpu driver and the pytorch version used by our framework not being compatible. So we only trained our models on cpu. Once we are on the VM we git clone our project pip install the requirements then run the experiments. We can also use wandb in the VM by providing the key when asked for it. However, the training was as slow as on our machines so it did not help much.
 ### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
@@ -408,7 +412,6 @@ We used Compute Engine to run our training.
 ![Alt text](figures/GCP_bucket.png)
 
 ![Alt text](figures/GCP_bucket1.png)
-![Alt text](figures/GCP_bucket2.png)
 ### Question 20
 
 > **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
@@ -518,7 +521,7 @@ Group member 1 used 6.67$. In total X credits was spend during development. The 
 >
 > Answer:
 
-The biggest challenge in the project was working with new tools and frameworks. In particular, when working on cloud, there were lots of issues when we tried to setup the deployment pipeline. Some scripts provided from the exercises were not working as intended. Therefore, we had to read GCP documentation and try out different examples from the available guides before we could identify any issue. This helped us gaining a better understanding of how different components are connected and interact with each other on GCP. Yet, there are still some problems that we were not able to solve. One of them being able to autmatically deploy a container. Apparently, after doing some research, a large docker file can cause problems. In our case, the size is around 3.6 GB. Despite our efforts in optimizing and reducing the overall size by keeping only the necessary files and folders, the issue hasn't been resolved yet.
+The biggest challenge in the project was working with new tools and frameworks. In particular, when working on cloud, there were lots of issues when we tried to setup the deployment pipeline. Some scripts provided from the exercises were not working as intended. Therefore, we had to read GCP documentation and try out different examples from the available guides before we could identify any issue. This helped us gaining a better understanding of how different components are connected and interact with each other on GCP. Yet, there are still some problems that we were not able to solve. One of the problems is to train with compute engine using GPU. The main reason was that a gpu driver update was needed. It was quite challenging to do that with only an ssh connection. The other solution would have been to downgrade our pytorch version but that is out of our control as the framework built on top has control over it. It was also challenging to deal with debugging build failures. Our containers work locally but fail in the cloud and the cloud logs and error messages are very vague and imprecise. So, we do not really know what is exactly going wrong. Most fixes have been through blind trial and error but we eventually solved build problems.
 
 ### Question 27
 
@@ -539,6 +542,4 @@ Student s183955 was in charge of setting up the project with cookie cutter, conf
 
 s184191 was in charge of 1, 2, 3
 
-s194819 was in charge of 1, 2, 3
-
---- question 27 fill here ---
+s194819 was in charge of developing of the docker containers for training our applications, configuring experiments and setting up the reporting to wandb inside container, local and cloud runs. Running experiements both locally and in cloud. Setting up dvc for model versioning and linking it to google cloud buckets. 
