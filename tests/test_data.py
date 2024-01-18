@@ -1,8 +1,10 @@
-import pytest
-import os
 import csv
+import os
+
+from hydra import compose, initialize
+
 from src.data.make_dataset import generate_csv, make_dataset
-from hydra import initialize, compose
+
 
 def test_generate_csv(tmpdir) -> None:
     # Create a temporary directory for the CSV file

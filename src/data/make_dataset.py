@@ -1,13 +1,15 @@
 import csv
-import hydra
 import os
-from datasets import load_dataset, IterableDataset
+
+import hydra
+from datasets import IterableDataset, load_dataset
 from omegaconf import DictConfig
+
 
 def generate_csv(csv_path: str | os.PathLike,
                  dataset: IterableDataset
                  ) -> None:
-    
+
     with open(csv_path, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["input", "target"])

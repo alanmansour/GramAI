@@ -4,7 +4,6 @@ import hydra
 from happytransformer import HappyTextToText, TTSettings, TTTrainArgs
 from omegaconf import DictConfig
 
-
 os.environ["WANDB_PROJECT"] = "mlops-proj47"
 os.environ["WANDB_LOG_MODEL"] = "checkpoint"
 
