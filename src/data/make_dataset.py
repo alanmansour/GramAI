@@ -15,8 +15,9 @@ def generate_csv(csv_path, dataset):
             writer.writerow([input_text, target_text])
 
 
-@hydra.main(config_path=".", config_name="config.yaml", version_base="1.2")
-def main(cfg):
+@hydra.main(config_path="../../config", config_name="default_config.yaml")
+def main(config):
+    cfg = config.data
     dataset_train = load_dataset("liweili/c4_200m", split="train", streaming=True, trust_remote_code=True)
     dataset_train = dataset_train.take(cfg.n_examples)
     dataset_path = os.path.join(hydra.utils.get_original_cwd(), cfg.dataset_path)  # Hydra changes cwd

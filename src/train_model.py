@@ -1,25 +1,31 @@
 import os
+import random
 
 import hydra
-from happytransformer import HappyTextToText, TTSettings, TTTrainArgs
+import numpy as np
+import torch
+from happytransformer import HappyTextToText, TTTrainArgs
 
 os.environ["WANDB_PROJECT"] = "mlops-proj47"
 os.environ["WANDB_LOG_MODEL"] = "checkpoint"
 
+def set_seed(seed: int):
+    """Helper function for reproducible behavior to set the seed in `random`, `numpy`, `torch` a
+    Args:
+        seed (`int`): The seed to set.
+    """
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
-@hydra.main(config_path="models/config", config_name="config.yaml")
-def train(cfg):
+@hydra.main(config_path="../config", config_name="default_config.yaml")
+def train(config):
+    cfg = config.training
     model = HappyTextToText("t5-small")
-    args = TTTrainArgs(batch_size=cfg.batch_size, report_to="wandb")
-
+    args = TTTrainArgs(batch_size=cfg.batch_size, report_to="wandb",learning_rate= cfg.lr,num_train_epochs=cfg.epochs)
+    set_seed(cfg.seed)
     model.train(cfg.dataset_path, args=args)
-    beam_settings = TTSettings(num_beams=5, min_length=1, max_length=100)
-    input_text_1 = "grammar: I I wants to codes."
-    output_text_1 = model.generate_text(input_text_1, args=beam_settings)
-    print(output_text_1.text)
-    model.train(cfg.dataset_path, args=args)
-    output_text_1 = model.generate_text(input_text_1, args=beam_settings)
-    print(output_text_1.text)
     model.save("models/model/")
 
 
