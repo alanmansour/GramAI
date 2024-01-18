@@ -5,12 +5,13 @@ from happytransformer import HappyTextToText, TTSettings
 from omegaconf import OmegaConf
 from pydantic import BaseModel
 
-# from prometheus_fastapi_instrumentator import Instrumentator
+from prometheus_fastapi_instrumentator import Instrumentator
 
 cfg = OmegaConf.load("config.yaml")
 
 app = FastAPI()
 model = HappyTextToText("T5", "./../models/model")
+Instrumentator().instrument(app).expose(app)
 
 
 @app.get("/")
