@@ -1,21 +1,50 @@
+import csv
 import os
 
-import pytest
-import torch
+from hydra import compose, initialize
+from omegaconf import OmegaConf
+
+from src.data.make_dataset import generate_csv, make_dataset
 
 
-@pytest.mark.skipif(
-    not (os.path.exists("data/processed/train_set.pt") and os.path.exists("data/processed/test_set.pt")),
-    reason="Data files not found",
-)
-def test_data():
-    train_set = torch.load("data/processed/train_set.pt")
-    test_set = torch.load("data/processed/test_set.pt")
-    assert len(train_set) == 30000 and len(test_set) == 5000, "Dataset did not have the correct number of samples"
-    for img, target in train_set:
-        assert img.shape == (1, 28, 28), "The shape does not equal to [1, 28, 28]"
-    labels = torch.tensor([y for x, y in train_set])
-    unique_labels = torch.unique(labels)
-    unique_labels = unique_labels.tolist()
-    expected_labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    assert unique_labels == expected_labels, "Some of the lables are missing in the dataset"
+def test_generate_csv(tmpdir) -> None:
+    # Create a temporary directory for the CSV file
+    temp_dir = tmpdir.mkdir("temp")
+    csv_path = os.path.join(temp_dir, "test.csv")
+
+    # Define a sample dataset
+    class SampleDataset:
+        def __iter__(self):
+            yield {"input": "example input", "output": "example output"}
+
+    # Generate the CSV file
+    dataset = SampleDataset()
+    generate_csv(csv_path, dataset)
+
+    # Read the CSV file and check its contents
+    with open(csv_path, "r") as csvfile:
+        reader = csv.reader(csvfile)
+        rows = list(reader)
+        assert rows[0] == ["input", "target"]
+        assert rows[1] == ["grammar: example input", "example output"]
+
+def test_make_dataset(tmpdir) -> None:
+    # Create a temporary directory for the CSV file
+    temp_dir = tmpdir.mkdir("temp")
+    csv_path = os.path.join(temp_dir, "test.csv")
+
+    with initialize(version_base=None, config_path="../config"):
+        # Run the make_dataset function
+        config = compose(config_name="default_config", overrides=["data.n_examples=1", f"data.dataset_path={csv_path}"])
+        print(f"configuration: \n {OmegaConf.to_yaml(config)}")
+        make_dataset(config)
+
+        # Check if the CSV file is generated
+        assert os.path.exists(csv_path)
+
+        # Read the CSV file and check its contents
+        with open(csv_path, "r") as csvfile:
+            reader = csv.reader(csvfile)
+            rows = list(reader)
+            assert rows[0] == ["input", "target"]
+            assert len(rows) == config.data.n_examples + 1  # +1 for the header row
