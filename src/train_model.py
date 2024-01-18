@@ -1,17 +1,16 @@
 import os
+import random
 
 import hydra
-from happytransformer import HappyTextToText, TTSettings, TTTrainArgs
-import random 
 import numpy as np
 import torch
+from happytransformer import HappyTextToText, TTTrainArgs
 
 os.environ["WANDB_PROJECT"] = "mlops-proj47"
 os.environ["WANDB_LOG_MODEL"] = "checkpoint"
 
 def set_seed(seed: int):
-    """
-    Helper function for reproducible behavior to set the seed in `random`, `numpy`, `torch` a
+    """Helper function for reproducible behavior to set the seed in `random`, `numpy`, `torch` a
     Args:
         seed (`int`): The seed to set.
     """
