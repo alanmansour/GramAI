@@ -401,7 +401,7 @@ We primarily used the following services: Compute Engine, Cloud Run, Cloud Build
 >
 > Answer:
 
-Compute engine is the backbone of GCP.We used Compute Engine to run our training. We tried both cpu and gpu training. For the cpu we used pytorch-latest-cpu image family. For gpu we used pytorch-latest-cpu image family.`-accelerator="type=nvidia-tesla-v100,count=1`There was some issue with gpu driver and the pytorch version used by our framework not being compatible. So we only trained our models on cpu. Once we are on the VM we git clone our project pip install the requirements then run the experiments. We can also use wandb in the VM by providing the key when asked for it. However, the training was as slow as on our machines so it did not help much.
+Compute engine is the backbone of GCP. We used Compute Engine to run our training. We tried both cpu and gpu training. For the cpu we used pytorch-latest-cpu image family. For gpu we used pytorch-latest-cpu image family.`-accelerator="type=nvidia-tesla-v100,count=1`There was some issue with gpu driver and the pytorch version used by our framework not being compatible. So we only trained our models on cpu. Once we are on the VM we git clone our project pip install the requirements then run the experiments. We can also use wandb in the VM by providing the key when asked for it. However, the training was as slow as on our machines so it did not help much.
 ### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
@@ -471,6 +471,7 @@ A user interface provides a more intuitive way to interact with our deployed mod
 >
 > Answer:
 
+We used `prometheus-fastapi-instrumentator` to allow us to easily instrument our FastAPI application with Prometheus to setup monitoring. We exposed the metrics on the `/metrics` endpoint of our deployed app. We also setup a Prometheus sidecar container for Cloud Run that scrapes metrics from port 8080 every 30 seconds. To automate some monitoring procedures, we created a policy called "Exceeding limit of expected requests" as part of alerting, which triggers email sending with a warning message to a notification group when the number of requests to our API exceeds some specified limit. The target we selected is "PROMETHEUS TARGET - PROMETHEUS/HTTP_REQUESTS_TOTAL/COUNTER". All data points in the most recent rolling window (5 min) combined together by using the aggregation function (rate) to form a single point. This helps to control whether our application gets too many requests than normal.
 
 ### Question 24
 
@@ -537,7 +538,7 @@ The biggest challenge in the project was working with new tools and frameworks -
 >
 > Answer:
 
-Student s183955 was in charge of setting up the project with cookie cutter, configuring protection rules on Github, creating a continuous integration (CI) setup, creating docker files for app deployment, buidling a pipeline for app deployment on cloud, and creating a graphical app for clients.
+Student s183955 was in charge of setting up the project with cookie cutter, configuring protection rules on Github, creating a continuous integration (CI) setup, creating docker files for app deployment, buidling a pipeline for app deployment on cloud, creating a graphical app for clients, and setting up monitoring.
 
 s184191 was in charge of 1, 2, 3
 
