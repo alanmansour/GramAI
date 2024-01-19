@@ -154,7 +154,7 @@ We used `conda` for managing our dependencies. The list of dependencies was auto
 Assuming `conda` and `git` are already installed:
 1. Clone the project: `git clone https://github.com/Alanocorleo/mlops_proj47.git`
 2. Change the current directory: `cd mlops_proj47`
-3. Create a conda enviroment (Python version can be obtained form pyproject.toml): `conda create --name <env_name> python=3.11.5` 
+3. Create a conda enviroment (Python version can be obtained form pyproject.toml): `conda create --name <env_name> python=3.11.5`
 4. Activate the created enviroment: `conda activate <env_name>`
 5. Install all the required packages: `pip install -r requirements.txt`
 
@@ -205,6 +205,7 @@ All team members have a software engineering background. Therefore, we were tryi
 >
 > Answer:
 
+We implemented three unit tests using pytest for our code, specifically testing the main functionality in `make_data.py` and `train_model.py`. We test that `make_data.py` generates the processed dataset in the correct format, and that `train_model.py` trains and outputs a model after training. We focused on these scripts, as they lay the foundation of the final product.
 
 ### Question 8
 
@@ -219,6 +220,7 @@ All team members have a software engineering background. Therefore, we were tryi
 >
 > Answer:
 
+Our total code coverage is 93%, as we do not test `gramai_gapp.py` (front-end for the web-app) nor `gramai_app.py` (backend). We use a GitHub Action to check coverage of our tests, when merging with `main`, and we upload the result to codecov.io. Latest coverage result can be seen [here](https://app.codecov.io/gh/Alanocorleo/mlops_proj47). Even with 100% code coverage, we have no guarantee that the code is error-free. Code coverage is a measure of how many lines of the code is tested, not how many lines are error-free. In the end, only the quality of the test will determine how much faith one should put into the result, but it can serve as a useful metric to ensure that code is at least tested at all.
 
 ### Question 9
 
@@ -306,7 +308,7 @@ We used hydra for configuring the parameters of our experiments in config files.
 >
 > Answer:
 
-In order for the experiments to be reproducable we need to insure we are using the same hyperparameters (including the seed). Moreover, it is important to be running the experiements in docker containers or a compute engine instance with the same configuration. This ensures no system variabilities modify the experiment results. We also need to use the same python version and packages versions. The perfect way to ensure all the above information is not lost is to save hyperparameters in config files, package versions in requirements files and dockerfiles for images. Finally, to ensure that the experiements are indeed reproducable we compare the results of the graph produced by wandb when running the same experiment twice. We are mostly interested in comparing the eval loss, training loss and not machine performance metrics. We cannot compare the weights of the models because the lirary we are using (happytransformer) abstracts the model tensors from us. 
+In order for the experiments to be reproducable we need to insure we are using the same hyperparameters (including the seed). Moreover, it is important to be running the experiements in docker containers or a compute engine instance with the same configuration. This ensures no system variabilities modify the experiment results. We also need to use the same python version and packages versions. The perfect way to ensure all the above information is not lost is to save hyperparameters in config files, package versions in requirements files and dockerfiles for images. Finally, to ensure that the experiements are indeed reproducable we compare the results of the graph produced by wandb when running the same experiment twice. We are mostly interested in comparing the eval loss, training loss and not machine performance metrics. We cannot compare the weights of the models because the lirary we are using (happytransformer) abstracts the model tensors from us.
 
 ### Question 14
 
@@ -360,8 +362,8 @@ We used docker to run our expreriments. We would run the docker image with a com
 >
 > Answer:
 
-We encountered many bugs during our experiment runs. We performed debugging mainly through logging. Our code produces logs on our training progress. Whenever we have a failure we can read the error messages and get an idea of what the bug was. We also setup tests to be able to isolate and detect bugs mostly after merging branches and adding new changes. We have not really tried profiling. Not because our code is already perfect but because the code from the libraries we are using is where most of our experiment time is spent. So optimizing our code will have negligible effects. 
- 
+We encountered many bugs during our experiment runs. We performed debugging mainly through logging. Our code produces logs on our training progress. Whenever we have a failure we can read the error messages and get an idea of what the bug was. We also setup tests to be able to isolate and detect bugs mostly after merging branches and adding new changes. We have not really tried profiling. Not because our code is already perfect but because the code from the libraries we are using is where most of our experiment time is spent. So optimizing our code will have negligible effects.
+
 ## Working in the cloud
 
 > In the following section we would like to know more about your experience when developing in the cloud.
@@ -379,7 +381,7 @@ We encountered many bugs during our experiment runs. We performed debugging main
 
 We primarily used the following services: Compute Engine, Cloud Run, Cloud Build, Cloud Storage, and Container Registry.
 
-- **Compute Engine** allows running virtual machines (VMs) on Google's cloud. By choosing the configuration of CPU, memory, GPU, disk, OS, and the needed software to run on the VMs, this service provides everything necessary to perform training on cloud. 
+- **Compute Engine** allows running virtual machines (VMs) on Google's cloud. By choosing the configuration of CPU, memory, GPU, disk, OS, and the needed software to run on the VMs, this service provides everything necessary to perform training on cloud.
 
 - **Cloud Run** allows running containers on a fully managed serverless platform. By deploying a container to Cloud Run, it will handle the hosting, scaling, and networking.
 
@@ -445,7 +447,7 @@ Compute engine is the backbone of GCP.We used Compute Engine to run our training
 >
 > Answer:
 
-For deployment we wrapped our model into an application using FastAPI. We created a trigger using Triggers, a feature provided by Cloud Build service, on GCP, and a `cloudbuild.yaml` file, specifying the steps needed: creating an image using `dockerfiles/gramai_app.dockerfile`, creating a container by running the image, pushing this container to Container Registry, and then deploy it using Cloud Run. To invoke the service, let's assume a user would like to check the correctness of the following sentence: *"He have a car"*. Hence, a user would call 
+For deployment we wrapped our model into an application using FastAPI. We created a trigger using Triggers, a feature provided by Cloud Build service, on GCP, and a `cloudbuild.yaml` file, specifying the steps needed: creating an image using `dockerfiles/gramai_app.dockerfile`, creating a container by running the image, pushing this container to Container Registry, and then deploy it using Cloud Run. To invoke the service, let's assume a user would like to check the correctness of the following sentence: *"He have a car"*. Hence, a user would call
 
 Curl:
 `curl -X 'POST' 'https://gramai-app-h2yv3342wq-ew.a.run.app/text/?input_sentence=He%20have%20a%20car'`
@@ -551,6 +553,6 @@ The biggest challenge in the project was working with new tools and frameworks -
 
 Student s183955 was in charge of setting up the project with cookie cutter, configuring protection rules on Github, creating a continuous integration (CI) setup, creating docker files for app deployment, buidling a pipeline for app deployment on cloud, and creating a graphical app for clients.
 
-s184191 was in charge of 1, 2, 3
+s184191 was in charge of setting up the initial data pipeline and model framework with HappyTransformer, W&B, and Hydra. Documenting, logging, typing, and unittesting the main Python scripts, as well as pre-commit setup.
 
-s194819 was in charge of developing of the docker containers for training our applications, configuring experiments and setting up the reporting to wandb inside container, local and cloud runs. Running experiements both locally and in cloud. Setting up dvc for model versioning and linking it to google cloud buckets. 
+s194819 was in charge of developing of the docker containers for training our applications, configuring experiments and setting up the reporting to wandb inside container, local and cloud runs. Running experiements both locally and in cloud. Setting up dvc for model versioning and linking it to google cloud buckets.
