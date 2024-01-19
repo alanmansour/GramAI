@@ -11,7 +11,8 @@ from omegaconf import DictConfig
 os.environ["WANDB_PROJECT"] = "mlops-proj47"
 os.environ["WANDB_LOG_MODEL"] = "checkpoint"
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+
 
 def set_seed(seed: int):
     """Helper function for reproducible behavior to set the seed in `random`, `numpy`, `torch` a
@@ -23,18 +24,26 @@ def set_seed(seed: int):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
+
 @hydra.main(config_path="../config", config_name="default_config.yaml", version_base=None)
 def train(config: DictConfig) -> None:
-    """ Train the model using the provided configuration. """
+    """Train the model using the provided configuration."""
     cfg = config.training
     model = HappyTextToText("t5-small")
-    args = TTTrainArgs(batch_size=cfg.batch_size, report_to="wandb",learning_rate= cfg.lr,num_train_epochs=cfg.epochs)
+
+    if cfg.metric_tracker != "wandb":  # necessary for unit testing
+        args = TTTrainArgs(batch_size=cfg.batch_size, learning_rate=cfg.lr, num_train_epochs=cfg.epochs)
+    else:
+        args = TTTrainArgs(
+            batch_size=cfg.batch_size, report_to=cfg.metric_tracker, learning_rate=cfg.lr, num_train_epochs=cfg.epochs
+        )
     set_seed(cfg.seed)
     logging.info("Training model...")
     model.train(cfg.dataset_path, args=args)
     logging.info("Training complete.")
-    model.save("models/model/")
-    logging.info("Model saved.")
+    model.save(cfg.model_path)
+    logging.info("Model saved to %s", cfg.model_path)
+
 
 if __name__ == "__main__":
     train()
