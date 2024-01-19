@@ -51,37 +51,37 @@ end of the project.
 ### Week 1
 
 * [x] Create a git repository
-* [ ] Make sure that all team members have write access to the github repository
+* [x] Make sure that all team members have write access to the github repository
 * [x] Create a dedicated environment for you project to keep track of your packages
 * [x] Create the initial file structure using cookiecutter
-* [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
-* [ ] Add a model file and a training script and get that running
-* [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
-* [ ] Do a bit of code typing and remember to document essential parts of your code
-* [ ] Setup version control for your data or part of your data
-* [ ] Construct one or multiple docker files for your code
-* [ ] Build the docker files locally and make sure they work as intended
-* [ ] Write one or multiple configurations files for your experiments
-* [ ] Use Hydra to load the configurations and manage your hyperparameters
+* [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+* [x] Add a model file and a training script and get that running
+* [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+* [x] Remember to comply with good coding practices (`pep8`) while doing the project
+* [x] Do a bit of code typing and remember to document essential parts of your code
+* [x] Setup version control for your data or part of your data
+* [x] Construct one or multiple docker files for your code
+* [x] Build the docker files locally and make sure they work as intended
+* [x] Write one or multiple configurations files for your experiments
+* [x] Use Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction and or model training
-* [ ] Calculate the coverage.
+* [x] Write unit tests related to the data part of your code
+* [x] Write unit tests related to model construction and or model training
+* [x] Calculate the coverage.
 * [x] Get some continuous integration running on the github repository
-* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
-* [ ] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [x] Create a trigger workflow for automatically building your docker images
+* [x] Get your model training in GCP using either the Engine or Vertex AI
+* [x] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
-* [ ] Deploy your model in GCP using either Functions or Run as the backend
+* [x] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
@@ -94,9 +94,9 @@ end of the project.
 
 ### Additional
 
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Make sure all group members have a understanding about all parts of the project
-* [ ] Uploaded all your code to github
+* [x] Revisit your initial project description. Did the project turn out as you wanted?
+* [x] Make sure all group members have a understanding about all parts of the project
+* [x] Uploaded all your code to github
 
 ## Group information
 
@@ -105,7 +105,7 @@ end of the project.
 >
 > Answer:
 
---- question 1 fill here ---
+MLOps 47
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -116,7 +116,8 @@ end of the project.
 >
 > Answer:
 
---- question 2 fill here ---
+
+s183955, s184191, s194819
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -129,7 +130,6 @@ end of the project.
 >
 > Answer:
 
---- question 3 fill here ---
 
 ## Coding environment
 
@@ -148,7 +148,17 @@ end of the project.
 >
 > Answer:
 
---- question 4 fill here ---
+We used `conda` for managing our dependencies. The list of dependencies was auto-generated using `pipreqs`. These depedencies were stored in requirements.txt. To get a complete copy of our development environment, one would have to run the following commands:
+
+Assuming `conda` and `git` are already installed:
+1. Clone the project: `git clone https://github.com/Alanocorleo/mlops_proj47.git`
+2. Change the current directory: `cd mlops_proj47`
+3. Create a conda enviroment (Python version can be obtained form pyproject.toml): `conda create --name <env_name> python=3.11.5` 
+4. Activate the created enviroment: `conda activate <env_name>`
+5. Install all the required packages: `pip install -r requirements.txt`
+
+requirements.txt is updated whenever there is change in the main branch. Thus, when working on a new branch, if the developer notices that some packages are missing from the enviroment, the developer is encoureged to install the packages using the file. `pip` would take care if some packages are missing or already exist.
+
 
 ### Question 5
 
@@ -163,7 +173,8 @@ end of the project.
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+From the cookiecutter template, we filled out the folders `src/data`, `src/models`, `data`, `models`, `tests`, `dockerfiles` and `reports`. We removed however `src/visualisations`, `docs` and `notebooks`. Since we were working with textual data, creating visualisations was not obvious. We also primarily relied on Python files; thus, Jupyter notebooks were not used. Moreover, we did not use MkDocs documentation framework. Instead, all information regarding our project was made available in the main README.md file, which containes a detailed description of the components and a short guide on how to use them. As for new folders, we added `src/assets`folder that contains all assets used in our graphical-based client app. Regarding the files given from the template (exluding those from the removed folders), all of them were filled and used. Moreover, new files were added such as gramai_app.py and app.py, as well as different requirements files, and cloudbuild.yaml. They were primarly used in cloud deployment.
+
 
 ### Question 6
 
@@ -174,7 +185,7 @@ end of the project.
 >
 > Answer:
 
---- question 6 fill here ---
+All team members have a software engineering background. Therefore, we were trying to apply software design principles such as Don't Repeat Yourself (DRY), Do One Thing (DOT), Keep It Simple Stupid (KISS), and You Aren't Gonna Need It (YAGNI). We also used `ruff` as our linter to analyze our code and to flag programming errors, bugs, and styling errors. All this can potentially reduce the possibility of bug occurence, while reducing the time spent to find a bug if occurred, in larger projects. Formatting also helps new developers in the team to understand the code easily.
 
 ## Version control
 
@@ -193,7 +204,6 @@ end of the project.
 >
 > Answer:
 
---- question 7 fill here ---
 
 ### Question 8
 
@@ -208,7 +218,6 @@ end of the project.
 >
 > Answer:
 
---- question 8 fill here ---
 
 ### Question 9
 
@@ -223,7 +232,14 @@ end of the project.
 >
 > Answer:
 
---- question 9 fill here ---
+We made use of both branches and PRs in our project. In our group, each member had at least a branch to work on, contributing to the main branch. Every branch corresponded to a feature. For example, being able to deploy an app on cloud automatically requires \<name\>.dockerfile as well as cloudbuild.yaml, which should contain the steps needed for doing so. This is considered as a feature. The feature must be functional before merging with main. If multiple components are involved, then a branch from main can be considered as an enabler, and further branches as features. To merge code, we always pulled the main branch, merged locally with the feature branch, and then pushed all changes to the feature branch on Github. On Github, a branch protection rule was applied to merge with main. This included:
+
+- Require a pull request before merging
+- Require at least 1 approval
+- Require status checks to pass before merging
+- Require conversation resolution before merging
+
+When all checks are passed, merging is allowed. This helped to keep the main code always functional.
 
 ### Question 10
 
@@ -238,7 +254,7 @@ end of the project.
 >
 > Answer:
 
---- question 10 fill here ---
+We have not used DVC for managing data in the project. However, we have used it for managing models. In our project, the model files have a size of about 300MB where as the data is about 3MB. We can easily version control the data with git as it is provided in a CSV file. The model files on the other hand cannot be version controlled by github as they exceed 100MB size threshhold. On the other hand, dvc allows us to version control the model. If one of the group members gets lucky with their hyperparameters and produces a great model. They can use dvc so that is is accessible to all group members with a simple dvc pull command.
 
 ### Question 11
 
@@ -254,7 +270,8 @@ end of the project.
 >
 > Answer:
 
---- question 11 fill here ---
+We have organized our CI into 3 separate files: one for checking if the code is PEP8 compliant via Ruff linter [codecheck.yaml](https://github.com/Alanocorleo/mlops_proj47/blob/main/.github/workflows/codecheck.yaml), one for checking if the code passes all unit tests [test.yaml](https://github.com/Alanocorleo/mlops_proj47/blob/main/.github/workflows/tests.yml), and one for checking the code coverage and uploading a report to Codecov [coverage.yaml](https://github.com/Alanocorleo/mlops_proj47/blob/main/.github/workflows/coverage.yaml). For testing, we use caching and code coverage, since there're a lot of dependencies and the sizes of some packages are significantly large. An example of a triggered workflow can be seen here: https://github.com/Alanocorleo/mlops_proj47/actions/runs/7545186644/job/20540236825. We also check for multiple operating systems: `ubuntu-latest`, `windows-latest`, `macos-latest`. Another part is related to the cloud. Whenever the main branch is updated, a build gets triggered. `cloudbuild.yaml` is used by Cloud Build on GCP to get the steps required for creating, storing and deploying a container in a continues manner. All logs from the build process are sent to Github. In this way, if the build fails on cloud, all developers would get notified. With this setup, CI automates the integration of code changes from every group member into a single consistent project. It improves the quality and the speed of delivery by providing fast feedback, reducing errors, limiting manual tasks, and ensuring consistent builds, enabling efficiency and productivity in work.
+
 
 ## Running code and tracking experiments
 
@@ -273,7 +290,7 @@ end of the project.
 >
 > Answer:
 
---- question 12 fill here ---
+We used hydra for configuring the parameters of our experiments in config files. Each experiment has it's own config file. We specify which config file we want to use by specifying the file name when running the python script. `python -u src/train_model.py training=training_fast2`. We have a training config that includes training hyperparameters like lr, epochs, batch size and so one. We also have one for making data as we can choose the size of the dataset we want to download and process.
 
 ### Question 13
 
@@ -288,7 +305,7 @@ end of the project.
 >
 > Answer:
 
---- question 13 fill here ---
+In order for the experiments to be reproducable we need to insure we are using the same hyperparameters (including the seed). Moreover, it is important to be running the experiements in docker containers or a compute engine instance with the same configuration. This ensures no system variabilities modify the experiment results. We also need to use the same python version and packages versions. The perfect way to ensure all the above information is not lost is to save hyperparameters in config files, package versions in requirements files and dockerfiles for images. Finally, to ensure that the experiements are indeed reproducable we compare the results of the graph produced by wandb when running the same experiment twice. We are mostly interested in comparing the eval loss, training loss and not machine performance metrics. We cannot compare the weights of the models because the lirary we are using (happytransformer) abstracts the model tensors from us. 
 
 ### Question 14
 
@@ -305,8 +322,15 @@ end of the project.
 >
 > Answer:
 
---- question 14 fill here ---
+The first metric we were interested in improving is the training time. Even if it comes at a slight quality loss. This way we can focus on experiments and run automated tasks withtout having to wait for a long time.
+![Alt text](figures/training_speed.png)
+The red graph is for a model trained on 10000 data points while the green is trained on 3000. The red takes more than 3 times the time to train than the green while not having any substantial difference in eval loss. So, based on this experiment, we decided to run future expriements on 3000 data points to speed up the experiement times and reduce the loop of debugging in the cloud if some wrong happens.
 
+The following shows results from running a bunch of experiments:
+
+![Alt text](figures/experiments.png)
+
+A lot of experiements we ran ended up failing mostly due to hardware failures (out of memory or networking issues due wandb sending data). These failures occured both locally and in the cloud experiments. Such experiments would have a high batch size for example or high epochs. On the other hand, the experiments that have succeded have not produced substantially different models. We mostly compare the eval/loss as it is the metric we can track while the experiment is going on. However, if we want to do a hyperparameter sweep we need to take the validation loss instead as the key metric to minimize for. We tried a sweep with wandb but it failed due to performance issues.
 ### Question 15
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
@@ -320,7 +344,7 @@ end of the project.
 >
 > Answer:
 
---- question 15 fill here ---
+We used docker to run our expreriments. We would run the docker image with a command like `docker run  -e WANDB_API_KEY=ourkeygoeshere train:latest training=training_fast`. The nice thing about using docker is that we do not loss our ability to use wandb or specify config files. We log into wandb by specifying an API key in an enviroment variable. We also specify the config file to use for the specific experiment. Our dockerfile for training can be found [here](./../dockerfiles/train_model.dockerfile). Nothing special is done in our dockerfile. We mostly copy things over and install requirements. If we are interesed in saving the model after training we can simply mount our models directory so we do not have to copy the model over after the experiment.
 
 ### Question 16
 
@@ -335,8 +359,8 @@ end of the project.
 >
 > Answer:
 
---- question 16 fill here ---
-
+We encountered many bugs during our experiment runs. We performed debugging mainly through logging. Our code produces logs on our training progress. Whenever we have a failure we can read the error messages and get an idea of what the bug was. We also setup tests to be able to isolate and detect bugs mostly after merging branches and adding new changes. We have not really tried profiling. Not because our code is already perfect but because the code from the libraries we are using is where most of our experiment time is spent. So optimizing our code will have negligible effects. 
+ 
 ## Working in the cloud
 
 > In the following section we would like to know more about your experience when developing in the cloud.
@@ -352,7 +376,17 @@ end of the project.
 >
 > Answer:
 
---- question 17 fill here ---
+We primarily used the following services: Compute Engine, Cloud Run, Cloud Build, Cloud Storage, and Container Registry.
+
+- **Compute Engine** allows running virtual machines (VMs) on Google's cloud. By choosing the configuration of CPU, memory, GPU, disk, OS, and the needed software to run on the VMs, this service provides everything necessary to perform training on cloud. 
+
+- **Cloud Run** allows running containers on a fully managed serverless platform. By deploying a container to Cloud Run, it will handle the hosting, scaling, and networking.
+
+- **Cloud Build** is a serverless continuous integration, delivery, and deployment platform that allows running fast, consistent, reliable automated builds. It can be used with Triggers to automatically trigger builds.
+
+- **Cloud Storage** allows storing and accessing data and large models on Google's cloud. Buckets are used to store large datasets and models. This service can be integrated with other GCP services, such as Compute Engine, Cloud Run, Cloud Functions and dvc.
+
+- **Container Registry** is a repository of container images and artifacts for Kubernetes, DevOps, and container-based application development. We used Container Registry to store, secure, scan, and manage our container images.
 
 ### Question 18
 
@@ -367,8 +401,7 @@ end of the project.
 >
 > Answer:
 
---- question 18 fill here ---
-
+Compute engine is the backbone of GCP.We used Compute Engine to run our training. We tried both cpu and gpu training. For the cpu we used pytorch-latest-cpu image family. For gpu we used pytorch-latest-cpu image family.`-accelerator="type=nvidia-tesla-v100,count=1`There was some issue with gpu driver and the pytorch version used by our framework not being compatible. So we only trained our models on cpu. Once we are on the VM we git clone our project pip install the requirements then run the experiments. We can also use wandb in the VM by providing the key when asked for it. However, the training was as slow as on our machines so it did not help much.
 ### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
@@ -376,8 +409,9 @@ end of the project.
 >
 > Answer:
 
---- question 19 fill here ---
+![Alt text](figures/GCP_bucket.png)
 
+![Alt text](figures/GCP_bucket1.png)
 ### Question 20
 
 > **Upload one image of your GCP container registry, such that we can see the different images that you have stored.**
@@ -385,7 +419,7 @@ end of the project.
 >
 > Answer:
 
---- question 20 fill here ---
+![Container Registry](figures/container_registry.png)
 
 ### Question 21
 
@@ -394,7 +428,7 @@ end of the project.
 >
 > Answer:
 
---- question 21 fill here ---
+![Build History](figures/build_history.png)
 
 ### Question 22
 
@@ -410,7 +444,19 @@ end of the project.
 >
 > Answer:
 
---- question 22 fill here ---
+For deployment we wrapped our model into an application using FastAPI. We created a trigger using Triggers, a feature provided by Cloud Build service, on GCP, and a `cloudbuild.yaml` file, specifying the steps needed: creating an image using `dockerfiles/gramai_app.dockerfile`, creating a container by running the image, pushing this container to Container Registry, and then deploy it using Cloud Run. To invoke the service, let's assume a user would like to check the correctness of the following sentence: *"He have a car"*. Hence, a user would call 
+
+Curl:
+`curl -X 'POST' 'https://gramai-app-h2yv3342wq-ew.a.run.app/text/?input_sentence=He%20have%20a%20car'`
+
+A response would be:
+`{"corrected":"He has a car."}%`
+
+We took another approach by designing and creating an app with user interface. We also deployed it ([GramAI](https://gramai-gapp-h2yv3342wq-ew.a.run.app/)). The following screenshot shows how it should look like:
+
+![GramAI](figures/gramai_deployed.png)
+
+A user interface provides a more intuitive way to interact with our deployed model.
 
 ### Question 23
 
@@ -425,7 +471,6 @@ end of the project.
 >
 > Answer:
 
---- question 23 fill here ---
 
 ### Question 24
 
@@ -439,7 +484,8 @@ end of the project.
 >
 > Answer:
 
---- question 24 fill here ---
+Group member 1 used 6.67$. Another group memeber used 3.64$. In total around 10$ credits was spend during development. The service costing the most was Compute Engine due to having instances running, especially for training. The instances must be stopped after finishing working with them; otherwise, they can consume credits. This is different to Cloud Run, which we used for deploying our app. It requires payment for the resources only when the deployed container is invoked and running.
+
 
 ## Overall discussion of project
 
@@ -460,7 +506,6 @@ end of the project.
 >
 > Answer:
 
---- question 25 fill here ---
 
 ### Question 26
 
@@ -474,7 +519,7 @@ end of the project.
 >
 > Answer:
 
---- question 26 fill here ---
+The biggest challenge in the project was working with new tools and frameworks - those we have no prior experience with. In particular, when working on cloud, there were lots of issues when we tried to setup the deployment pipeline. Some scripts provided from the exercises were not working as intended. Therefore, we had to read GCP documentation and try out different examples from the available guides before we could identify any issue. This helped us gaining a better understanding of how different components are connected and interact with each other on GCP. One problems that we had was not being able to automatically deploy a container. Apparently, after doing some research, a large docker file can cause problems. In our case, the size is around 3.6 GB. Despite our efforts in optimizing and reducing the overall size by keeping only the necessary files and folders, it didn't work. The alternative solution that solved our problem was basically specifying the machine name which should handle all of the processing. The more capable the machine, the better it can handle large files. One of the other major problems we had is to train with compute engine using GPU. The main reason was that a gpu driver update was needed. It was quite challenging to do that with only an ssh connection. The other solution would have been to downgrade our pytorch version but that is out of our control as the framework built on top has control over it. It was also challenging to deal with debugging build failures. Our containers work locally but fail in the cloud and the cloud logs and error messages are very vague and imprecise. So, we do not really know what is exactly going wrong. Most fixes have been through blind trial and error but we eventually solved build problems.
 
 ### Question 27
 
@@ -491,4 +536,8 @@ end of the project.
 >
 > Answer:
 
---- question 27 fill here ---
+Student s183955 was in charge of setting up the project with cookie cutter, configuring protection rules on Github, creating a continuous integration (CI) setup, creating docker files for app deployment, buidling a pipeline for app deployment on cloud, and creating a graphical app for clients.
+
+s184191 was in charge of 1, 2, 3
+
+s194819 was in charge of developing of the docker containers for training our applications, configuring experiments and setting up the reporting to wandb inside container, local and cloud runs. Running experiements both locally and in cloud. Setting up dvc for model versioning and linking it to google cloud buckets. 
