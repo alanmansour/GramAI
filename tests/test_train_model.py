@@ -29,6 +29,7 @@ def test_train_model(tmpdir):
             overrides=[
                 f"training.dataset_path={dataset_path}",
                 f"training.model_path={model_dir}",
+                "training.metric_tracker=False",
                 "training.epochs=1",
                 "training.batch_size=1",
                 "training.lr=0.0001",

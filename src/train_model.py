@@ -30,7 +30,13 @@ def train(config: DictConfig) -> None:
     """Train the model using the provided configuration."""
     cfg = config.training
     model = HappyTextToText("t5-small")
-    args = TTTrainArgs(batch_size=cfg.batch_size, report_to="wandb", learning_rate=cfg.lr, num_train_epochs=cfg.epochs)
+
+    if cfg.metric_tracker != "wandb":  # necessary for unit testing
+        args = TTTrainArgs(batch_size=cfg.batch_size, learning_rate=cfg.lr, num_train_epochs=cfg.epochs)
+    else:
+        args = TTTrainArgs(
+            batch_size=cfg.batch_size, report_to=cfg.metric_tracker, learning_rate=cfg.lr, num_train_epochs=cfg.epochs
+        )
     set_seed(cfg.seed)
     logging.info("Training model...")
     model.train(cfg.dataset_path, args=args)
