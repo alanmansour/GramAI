@@ -506,6 +506,7 @@ Group member 1 used 6.67$. Another group memeber used 3.64$. In total around 10$
 >
 > Answer:
 
+![Alt text](figures/architecture.png)
 
 ### Question 26
 
