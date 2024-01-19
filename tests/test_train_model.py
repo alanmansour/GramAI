@@ -1,5 +1,6 @@
 import csv
 import os
+from shutil import rmtree
 
 from hydra import compose, initialize
 
@@ -44,5 +45,4 @@ def test_train_model(tmpdir):
     assert os.path.exists(model_path), f"{model_path} does not exist"
 
     # Clean up the temporary directories
-    os.rmdir(model_dir)
-    os.rmdir(temp_dir)
+    rmtree(temp_dir)
