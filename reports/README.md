@@ -130,6 +130,7 @@ s183955, s184191, s194819
 >
 > Answer:
 
+We choose a couple of frameworks for the project. For the machine learning part, we used a framework call `HappyTransformer`. It is a library built on top of `HuggingFace`. It used for creating transformer models. We used a text-to-text transformer for our base model. The base model is pre-trained but is not trained for the grammar correction task. `HappyTransformer` was very helpful to complete the project. It simplifies model creation and training and integrates well with other tools we used like wandb. The library also gives a lot of good logging during the training so we have an idea of  We have also used Dash for creating an interface for the client app.
 
 ## Coding environment
 
@@ -506,8 +507,19 @@ Group member 1 used 6.67$. Another group memeber used 3.64$. In total around 10$
 >
 > Answer:
 
+The following diagram gives an overview of the overall architecture of our system and what services we make use of:
 ![Alt text](figures/architecture.png)
 
+
+The process begins with a developer making a pull request on GitHub. The pull request triggers a series of actions that involve code review and checks before it is merged into the main repository. Before merging is allowed, ruff check and tests have to run successfully. Code Coverage is also calculated and updated.
+
+After the merge, the workflow initiates automated tasks that include building a Docker image of the application and pushing it to the Container Registry. This part of the process involves tools like Cloud Build for creating project-based images and pushing them to storage.
+
+DVC (Data Version Control) plays an essential role in managing and versioning datasets and machine learning models. It interacts with Cloud Storage (Bucket), ensuring that data is appropriately stored and versioned.
+
+The experiments can be ran both in VertexAI and Compute Engine. Hydra is used for configuring experiments. Wandb is used to see metrics from the experiments.
+
+The final steps involve deploying the application using Cloud Run, which allows for fully managed applications in containers on Google Cloud Platform. Monitoring these applications is done through Cloud Monitoring to ensure optimal performance and availability.
 ### Question 26
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
