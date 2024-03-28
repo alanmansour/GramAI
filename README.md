@@ -8,7 +8,7 @@ We intend to use the transformer framework from HuggingFace. The framework provi
 We will train our models on a subset of C4 200M Grammar Error Correction dataset ([link](https://huggingface.co/datasets/liweili/c4_200m)).
 The reason for training only a subset is to limit the training time of the models and simplify the scope of the project. 
 ### What models do you expect to use
-The idea is to use FLAN-T5, which  is an enhanced version of T5 that has been fine-tuned on a mixture of tasks that include question answering, summarization, translation, and grammatical error correction. T5 is based on the Transformer architecture, which is a type of neural network that has been proven to be highly effective in NLP tasks. T5 uses a Text-to-Text approach. It is pre-trained on a large text corpus (C4). This allows T5 to learn general language knowledge and transfer it to different tasks. T5 is available in different sizes, ranging from small (60 million parameters) to XXL (11 billion parameters). Our task is to further fine-tune FLAN-T5 on grammar error correction to improve its performance. 
+The idea is to use T5. T5 is based on the Transformer architecture, which is a type of neural network that has been proven to be highly effective in NLP tasks. T5 uses a Text-to-Text approach. It is pre-trained on a large text corpus (C4). This allows T5 to learn general language knowledge and transfer it to different tasks. T5 is available in different sizes, ranging from small (60 million parameters) to XXL (11 billion parameters). Our task is to further fine-tune T5 on grammar error correction to improve its performance. 
 
 
 ## Project structure
