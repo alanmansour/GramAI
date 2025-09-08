@@ -1,5 +1,9 @@
 # GramAI
 
+
+> **Disclaimer:**  
+> This project is developed as a prerequisite to pass the course 02476 Machine Learning Operations taught at the Technical University of Denmark (DTU) in January 2024. All content below is a filled-in template for evaluation purposes. You may take inspiration from how MLOps methodology is applied to develop and maintain an AI-based web app.
+
 ### Overall goal of the project
 In this project, we aim to fine-tune a text2text model to do grammar correction on English sentences. By applying the MLOps methods and tools taught in the course, we want to create a ML project with a focus on maintainability, shareability, and reproducibility.
 ### What framework are you going to use and do you intend to include the framework into your project?
